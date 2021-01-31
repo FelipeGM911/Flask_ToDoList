@@ -5,10 +5,9 @@ from wtforms.fields import StringField, SubmitField, PasswordField #field de log
 from wtforms.validators import DataRequired #Validador de datos
 import unittest
 
-app = Flask(__name__) #__name__ = main.py
-bootstrap = Bootstrap(app)
+from app import create_app
 
-app.config['SECRET_KEY'] = 'SUPER SECRETO'
+app = create_app()
 
 todos = ['comprar cafe','Enviar solucitud de compra','entregar video al productor']
 
@@ -30,27 +29,30 @@ def not_found(error):
 def internal_error(error):
     return render_template('500.html', error=error)
 
+#index o inio del proyecto
 @app.route('/') #rutas de proyecto
 def index():
     user_ip = request.remote_addr #optener ip de usuario
 
     response = make_response(redirect('/hello')) #redirecciona a hello
-    session['user_ip'] = user_ip
+    session['user_ip'] = user_ip #ocultar ip en sessions
 
     return response
 
 
 @app.route('/hello', methods=['GET','POST'])
 def hello():
-    user_ip = session.get('user_ip') #optener dato de la cookie (ip)
+    user_ip = session.get('user_ip') #optener dato de la ip oculta por seguridad en sessions
     login_form = LoginForm()
     username = session.get('username')
+    
     context = {
         'user_ip': user_ip,
         'todos': todos,
         'login_form': login_form,
         'username':username
     }
+    
     if login_form.validate_on_submit():
         username = login_form.username.data
         session['username'] =  username
