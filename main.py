@@ -1,12 +1,12 @@
 from flask import flash, session, url_for, request, make_response, redirect, render_template
-from flask_bootstrap import Bootstrap
+from flask_login import login_required
+
 import unittest
 from app import create_app
 from  app.forms import LoginForm
 
+from app.firestore_service import get_users, get_todos
 app = create_app()
-
-todos = ['comprar cafe','Enviar solucitud de compra','entregar video al productor']
 
 @app.cli.command()
 def test():
@@ -32,25 +32,16 @@ def index():
     return response
 
 
-@app.route('/hello', methods=['GET','POST'])
+@app.route('/hello', methods=['GET'])
+@login_required
 def hello():
     user_ip = session.get('user_ip') #optener dato de la ip oculta por seguridad en sessions
-    login_form = LoginForm()
     username = session.get('username')
     
     context = {
         'user_ip': user_ip,
-        'todos': todos,
-        'login_form': login_form,
+        'todos': get_todos(user_id=username),
         'username':username
     }
-    
-    if login_form.validate_on_submit():
-        username = login_form.username.data
-        session['username'] =  username
-
-        flash('Nombre de usuario registrado con exito')
-
-        return redirect(url_for('index'))
 
     return render_template('hello.html', **context) #renderear un template

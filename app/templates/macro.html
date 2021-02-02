@@ -1,4 +1,4 @@
 <!-- crear macros -->
 {% macro render_todo(todo) %}
-    <li>Descripcion: {{todo}}</li>
+    <li>Descripcion: {{todo.to_dict().descripcion}}</li>
 {% endmacro %}
