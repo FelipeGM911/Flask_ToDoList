@@ -1,4 +1,26 @@
 <!-- crear macros -->
-{% macro render_todo(todo) %}
-    <li>Descripcion: {{todo.to_dict().descripcion}}</li>
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% macro render_todo(todo, delete_form, update_form) %}
+    <li class="list-group-item">
+        <div>
+        Descripción: {{ todo.to_dict().description}}
+        
+            {%if todo.to_dict().done %}
+            <span class="badge badge-success badge-pill float-right m-2">
+                Done
+            </span>
+            {% else %}
+            <span class="badge badge-danger badge-pill float-right m-2">
+                To Do
+            </span>
+            {% endif %}
+        </div>
+        
+        <div class="btn-group">
+            {{ wtf.quick_form(delete_form, action=url_for('delete', todo_id=todo.id)) }}
+           
+            {{ wtf.quick_form(update_form, action=url_for('update', todo_id=todo.id, done=todo.to_dict().done))}}
+        </div>
+    </li>
 {% endmacro %}
