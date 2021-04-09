@@ -5,3 +5,7 @@ html * {
 img{
     max-width: 30px;
 }
+
+h1 {
+    text-align:center;
+}

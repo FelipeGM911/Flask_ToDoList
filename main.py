@@ -22,15 +22,19 @@ def not_found(error):
 def internal_error(error):
     return render_template('500.html', error=error)
 
-#index o inio del proyecto
+#index o inicio del proyecto
 @app.route('/') #rutas de proyecto
 def index():
     user_ip = request.remote_addr #optener ip de usuario
 
-    response = make_response(redirect('/hello')) #redirecciona a hello
+    response = make_response(redirect('/main')) #redirecciona a hello
     session['user_ip'] = user_ip #ocultar ip en sessions
 
     return response
+
+@app.route('/main')
+def main():
+    return render_template('main.html')
 
 
 @app.route('/hello', methods=['GET','POST'])

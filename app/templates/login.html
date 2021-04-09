@@ -4,10 +4,11 @@
 
 {% block title %}
     {{ super() }}
-    Login
+    | Log In
 {% endblock %}
 
 {% block content %}
+    <h1>Inicia Sesion</h1>
     <div class='container'>
         {{ wtf.quick_form(login_form) }}
     </div>

@@ -5,7 +5,7 @@
 <!-- bloque TITLE -->
 {% block title %} 
     {{super()}} 
-    Bienvenido 
+    | Bienvenido 
 {% endblock %} 
 
 <!-- bloque CONTENT -->
@@ -16,9 +16,7 @@
     {% endif %}
 
     {% if user_ip %}
-        <h3>Hello world Platzi, tu IP es {{ user_ip }} </h3>
-    {% else %}
-        <a href="{{ url_for('index') }}">Ir a inicio</a>
+        <h3>Tu IP es {{ user_ip }} </h3>
     {% endif %}
     
     <div class="container">

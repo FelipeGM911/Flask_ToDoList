@@ -8,6 +8,7 @@ from app.forms import LoginForm
 from ..firestore_service import get_user, user_put
 from app.models import UserData, UserModel
 
+
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
     login_form = LoginForm()
@@ -38,7 +39,7 @@ def login():
         else:
             flash('Usuario inexistente')
 
-        return redirect(url_for('index'))
+        return redirect(url_for('hello'))
 
     return render_template('login.html',**context)
 
@@ -79,4 +80,4 @@ def logout():
     logout_user()
     flash('Has cerrado sesion')
 
-    return redirect(url_for('auth.login'))
+    return redirect(url_for('main'))

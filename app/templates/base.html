@@ -4,7 +4,7 @@
     {{super()}}
 
     <title> 
-        {% block title %}Flask platzi | {% endblock %}
+        {% block title %}ToDoList  {% endblock %}
     </title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css')}}">
 {% endblock %}
@@ -22,6 +22,7 @@
     {% endfor %}
     
     {% block content %} <!-- traer el bloque CONTENT que esta en hello -->
+    
     {% endblock %}
 
     {% block scripts %}
